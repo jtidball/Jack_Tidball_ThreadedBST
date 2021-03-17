@@ -111,13 +111,13 @@ public:
 		while (curr->right() != NULL) { // go as far right possible 
 			curr = curr->right();
 		}
-		while (curr->left() != NULL) {
+		while (curr->left() != NULL) { // we move the opposite way now we move left incrementally
 			cout << "\n" << curr->element(); // print the first right element and set the next before we iterate again
-			if ((curr->getLeftThreadPointer()) == true) {
-				curr = curr->left();
+			if ((curr->getLeftThreadPointer()) == true) { // if the pointer is a thread 
+				curr = curr->left(); //  go left once more and reiterate
 			} else {
-				curr = curr->left(); 
-				while ((curr->getRightThreadPointer())== false) {
+				curr = curr->left();  // set curr to the left 
+				while ((curr->getRightThreadPointer())== false) { // go to the right most node on the branch 
 					curr = curr->right();
 				}
 			}
@@ -154,25 +154,24 @@ BSTNode<Key, E>* BST<Key, E>::inserthelp(BSTNode<Key, E>* root, const Key& k, co
 	if (k < root->key()) {
 		if ((root->getLeftThreadPointer()) == true) { // if left pointer is a thread 
 			BSTNode<Key, E>* node = new BSTNode<Key, E>(k, it, NULL, NULL); // create new node 
-			node->setRight(root, true); // set the 
-			node->setLeft(root->left(), true);
-			root->setLeft(node, false);
+			node->setRight(root, true); // right child pointer is going to equal the root, both the left and right are going to be threads
+			node->setLeft(root->left(), true); //set the left side pointer to the point to the root left child
+			root->setLeft(node, false); // then we can set the node as a left child of the root 
 		} else {
 			root->setLeft(inserthelp(root->left(), k, it), false); // recursively go left and check again 
 		}
 	} else { 
 		if ((root->getRightThreadPointer()) == true) { // if right pointer is a thread 
 			BSTNode<Key, E>* node = new BSTNode<Key, E>(k, it, NULL, NULL); // create a new node 
-			node->setRight(root->right(), true);
+			node->setRight(root->right(), true); // same exact thing as above but now we are going to the right because the key was larger 
 			node->setLeft(root, true);
-			root->setRight(node, false);
+			root->setRight(node, false); // insert the node to the right 
 		} else { 
 			root->setRight(inserthelp(root->right(), k, it), false); // otherwise go right and check again
 		}
 	}
-	return root;
+	return root; // return the tree
 }
-
 
 // Delete the minimum value from the BST, returning the revised BST
 template <typename Key, typename E>
@@ -182,7 +181,6 @@ getmin(BSTNode<Key, E>* rt) {
 		return rt;
 	else return getmin(rt->left());
 }
-
 
 
 // Find a node with the given key value

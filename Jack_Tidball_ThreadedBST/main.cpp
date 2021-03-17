@@ -11,7 +11,7 @@ using namespace std;
 
 int main() {
 
-	cout << "Jack Tidball CSIS 215 - Double Threaded Binary Search Tree\n\n";
+	cout << "\n\nJack Tidball CSIS 215 - Double Threaded Binary Search Tree\n\n";
 
 	
 	int arr[] = { 77, 70, 75, 66, 79, 68, 67, 69, 90, 85, 83, 87, 65};
